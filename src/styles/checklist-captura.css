@@ -1,0 +1,676 @@
+.checklist-captura-page {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0.3rem;
+  background: linear-gradient(135deg, #0a0514 0%, #1a0b2e 100%);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.checklist-captura-page::-webkit-scrollbar {
+  display: none;
+}
+
+.checklist-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 20;
+  width: 100%;
+  background: rgba(88, 51, 139, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(88, 51, 139, 0.2);
+  padding: 0.5rem 1rem;
+  margin: -0.3rem -0.3rem 0.3rem -0.3rem;
+  width: calc(100% + 0.6rem);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 10px rgba(88, 51, 139, 0.3);
+  background: linear-gradient(135deg, 
+    rgba(255, 255, 255, 0.95) 0%, 
+    rgba(147, 112, 219, 0.9) 50%, 
+    rgba(186, 156, 255, 0.85) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(147, 112, 219, 0.3));
+}
+
+.client-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 500;
+}
+
+.progress-bar {
+  width: 120px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, 
+    rgba(147, 112, 219, 0.8) 0%, 
+    rgba(186, 156, 255, 0.9) 100%
+  );
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 8px rgba(147, 112, 219, 0.4);
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.7rem;
+  margin: 0;
+}
+
+.back-link:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.checklist-content {
+  flex: 1;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+}
+
+.checklist-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 0.5rem;
+}
+
+.checklist-table-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.2),
+    0 0 100px rgba(88, 51, 139, 0.1);
+  position: relative;
+  scroll-behavior: smooth;
+  /* Custom scrollbar elegante */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(147, 112, 219, 0.7) rgba(0, 0, 0, 0.2);
+}
+
+.checklist-table-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.checklist-table-container::-webkit-scrollbar-track {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.3) 0%, 
+    rgba(26, 11, 46, 0.4) 50%, 
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  border-radius: 6px;
+  border: 1px solid rgba(147, 112, 219, 0.1);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.checklist-table-container::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, 
+    rgba(147, 112, 219, 0.8) 0%, 
+    rgba(186, 156, 255, 0.9) 50%, 
+    rgba(147, 112, 219, 0.8) 100%
+  );
+  border-radius: 6px;
+  border: 1px solid rgba(147, 112, 219, 0.3);
+  box-shadow: 
+    0 2px 8px rgba(147, 112, 219, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.checklist-table-container::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, 
+    rgba(147, 112, 219, 1) 0%, 
+    rgba(186, 156, 255, 1) 50%, 
+    rgba(147, 112, 219, 1) 100%
+  );
+  box-shadow: 
+    0 4px 16px rgba(147, 112, 219, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+  border-color: rgba(147, 112, 219, 0.5);
+}
+
+.checklist-table-container::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(135deg, 
+    rgba(186, 156, 255, 1) 0%, 
+    rgba(147, 112, 219, 1) 50%, 
+    rgba(186, 156, 255, 1) 100%
+  );
+  transform: scale(0.95);
+  box-shadow: 
+    0 2px 8px rgba(147, 112, 219, 0.8),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.checklist-table-container::-webkit-scrollbar-corner {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.4) 0%, 
+    rgba(26, 11, 46, 0.5) 50%, 
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  border-radius: 6px;
+  border: 1px solid rgba(147, 112, 219, 0.2);
+}
+
+/* Efectos adicionales para el scroll */
+.checklist-table-container::-webkit-scrollbar-track:hover {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.4) 0%, 
+    rgba(26, 11, 46, 0.5) 50%, 
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  border-color: rgba(147, 112, 219, 0.2);
+}
+
+/* Animación sutil para el scroll */
+@keyframes scrollGlow {
+  0% {
+    box-shadow: 
+      0 2px 8px rgba(147, 112, 219, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 4px 16px rgba(147, 112, 219, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 
+      0 2px 8px rgba(147, 112, 219, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+.checklist-table-container::-webkit-scrollbar-thumb {
+  animation: scrollGlow 3s ease-in-out infinite;
+}
+
+.checklist-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.7rem;
+  background: transparent;
+  min-width: 3200px; /* Restaurado al valor original */
+}
+
+.checklist-table thead th {
+  background: linear-gradient(180deg, 
+    rgba(30, 30, 40, 0.98) 0%, 
+    rgba(20, 20, 30, 0.95) 100%
+  );
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 600;
+  font-family: 'Google Sans', 'Google Sans Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  text-align: left;
+  padding: 1rem 0.6rem;
+  font-size: 0.75rem;
+  border-bottom: 1px solid rgba(60, 60, 80, 0.8);
+  border-right: 1px solid rgba(60, 60, 80, 0.4);
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  white-space: normal;
+  word-wrap: break-word;
+  line-height: 1.4;
+  vertical-align: middle;
+  text-align: center;
+  height: auto;
+  max-width: 130px;
+  min-width: 110px;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: table-cell;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  position: relative;
+  letter-spacing: 0.3px;
+  text-transform: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: capitalize;
+  border-top: 1px solid rgba(80, 80, 100, 0.6);
+}
+
+.checklist-table thead th::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(100, 100, 120, 0.6) 20%, 
+    rgba(120, 120, 140, 0.8) 50%, 
+    rgba(100, 100, 120, 0.6) 80%, 
+    transparent 100%
+  );
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.checklist-table thead th::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(40, 40, 50, 0.8) 50%, 
+    transparent 100%
+  );
+  opacity: 0.6;
+}
+
+.checklist-table thead th:hover {
+  background: linear-gradient(180deg, 
+    rgba(40, 40, 55, 0.98) 0%, 
+    rgba(30, 30, 45, 0.95) 100%
+  );
+  color: white;
+  transform: translateY(-0.5px);
+  box-shadow: 
+    0 3px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.checklist-table thead th:hover::before {
+  opacity: 0.8;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(120, 120, 140, 0.8) 20%, 
+    rgba(140, 140, 160, 1) 50%, 
+    rgba(120, 120, 140, 0.8) 80%, 
+    transparent 100%
+  );
+}
+
+.checklist-table thead th:first-child {
+  width: 40px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.checklist-table thead th:nth-child(2) {
+  width: 60px;
+  min-width: 60px;
+}
+
+.checklist-table thead th:nth-child(3) {
+  width: 250px; /* Aumentado para el concepto/perfil */
+  min-width: 250px;
+}
+
+/* Columnas específicas con anchos optimizados */
+.checklist-table thead th:nth-child(4), /* TIPO */
+.checklist-table thead th:nth-child(11), /* OTRAS CUENTAS */
+.checklist-table thead th:nth-child(12) { /* TIPO DE CONTRATACION */
+  width: 120px;
+  min-width: 120px;
+}
+
+.checklist-table thead th:nth-child(9), /* SUELDO/COSTO */
+.checklist-table thead th:nth-child(17), /* VIAJES MONTO */
+.checklist-table thead th:nth-child(20), /* RECURSOS MONTO */
+.checklist-table thead th:nth-child(22), /* EMPRESA MONTO */
+.checklist-table thead th:nth-child(24), /* PAUTA MONTO */
+.checklist-table thead th:nth-child(26) { /* OTROS GASTOS MONTO */
+  width: 90px;
+  min-width: 90px;
+}
+
+.checklist-table thead th:nth-child(16), /* VIAJES DESCRIPTIVO */
+.checklist-table thead th:nth-child(19), /* RECURSOS DESCRIPTIVO */
+.checklist-table thead th:nth-child(21), /* EMPRESA DESCRIPTIVO */
+.checklist-table thead th:nth-child(23), /* PAUTA DESCRIPTIVO */
+.checklist-table thead th:nth-child(25) { /* OTROS GASTOS DESCRIPTIVOS */
+  width: 150px;
+  min-width: 150px;
+}
+
+.checklist-table thead th:last-child {
+  border-right: none;
+}
+
+.section-header {
+  background: rgba(147, 112, 219, 0.2) !important;
+}
+
+.section-title {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: white !important;
+  padding: 0.15rem 0.3rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.55) 0%, 
+    rgba(26, 11, 46, 0.6) 25%, 
+    rgba(88, 51, 139, 0.5) 50%, 
+    rgba(147, 112, 219, 0.45) 75%, 
+    rgba(88, 51, 139, 0.5) 100%
+  ) !important;
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 2px 8px rgba(0, 0, 0, 0.2) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  opacity: 0.92;
+  text-align: left !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-right: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(147, 112, 219, 0.35) 50%, 
+    transparent 100%
+  );
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.25) 50%, 
+    transparent 100%
+  );
+}
+
+.checklist-table tbody tr {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.checklist-table tbody tr:hover {
+  background: rgba(147, 112, 219, 0.1) !important;
+}
+
+.checklist-table tbody tr.completed {
+  background: rgba(147, 112, 219, 0.15) !important;
+  border-left: 3px solid rgba(147, 112, 219, 0.8);
+}
+
+.checklist-table tbody tr.completed td {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.checklist-table td {
+  padding: 0.4rem 0.3rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.65rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  line-height: 1.2;
+  background: transparent;
+  vertical-align: middle;
+}
+
+.checklist-table td:last-child {
+  border-right: none;
+}
+
+.checkbox-cell {
+  text-align: center !important;
+  width: 40px;
+  min-width: 40px;
+}
+
+.checkbox-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.check-icon {
+  color: rgba(147, 112, 219, 0.6);
+  transition: all 0.2s ease;
+}
+
+.check-icon.completed {
+  color: rgba(147, 112, 219, 1);
+  filter: drop-shadow(0 0 4px rgba(147, 112, 219, 0.6));
+}
+
+.checkbox-button:hover .check-icon {
+  color: rgba(147, 112, 219, 0.8);
+  transform: scale(1.1);
+}
+
+.item-id {
+  font-weight: 600;
+  color: rgba(147, 112, 219, 0.9) !important;
+  text-align: center;
+  width: 60px;
+  min-width: 60px;
+}
+
+.task-cell {
+  font-weight: 500;
+  width: 250px;
+  min-width: 250px;
+  word-wrap: break-word;
+  line-height: 1.3;
+}
+
+.table-input,
+.table-input select {
+  width: 100%;
+  padding: 0.25rem 0.4rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  color: white;
+  font-size: 0.6rem;
+  transition: all 0.2s;
+  min-width: 80px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.table-input:hover,
+.table-input select:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.table-input:focus,
+.table-input select:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(147, 112, 219, 0.5);
+  box-shadow: 
+    inset 0 1px 2px rgba(0, 0, 0, 0.2), 
+    0 0 0 2px rgba(147, 112, 219, 0.3);
+}
+
+/* Estilos específicos para select */
+select.table-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.6)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 12px;
+  padding-right: 2rem;
+  cursor: pointer;
+}
+
+select.table-input option {
+  background: rgba(26, 11, 46, 0.95);
+  color: white;
+  padding: 0.5rem;
+  font-size: 0.6rem;
+}
+
+select.table-input:focus option:hover,
+select.table-input:focus option:focus,
+select.table-input:focus option:active,
+select.table-input:focus option:checked {
+  background: rgba(147, 112, 219, 0.3);
+}
+
+.table-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.55rem;
+}
+
+/* Remove number input spinners */
+.table-input::-webkit-outer-spin-button,
+.table-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.table-input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .checklist-table {
+    font-size: 0.65rem;
+  }
+  
+  .checklist-table thead th {
+    font-size: 0.6rem;
+    padding: 0.4rem 0.25rem;
+  }
+  
+  .checklist-table td {
+    padding: 0.35rem 0.25rem;
+    font-size: 0.6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .checklist-header {
+    padding: 0.5rem;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .header-left,
+  .header-right {
+    gap: 1rem;
+  }
+  
+  .page-title {
+    font-size: 1.25rem;
+  }
+  
+  .checklist-content {
+    height: calc(100vh - 120px);
+  }
+  
+  .checklist-table {
+    font-size: 0.6rem;
+  }
+}
