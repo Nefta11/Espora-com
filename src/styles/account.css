@@ -559,7 +559,7 @@
 
 .continue-button-container {
   position: fixed;
-  bottom: 0.5rem;
+  bottom: 0.2rem;
   right: 3rem;
   z-index: 30;
   opacity: 0;
